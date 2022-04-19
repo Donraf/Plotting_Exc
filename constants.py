@@ -1,0 +1,6 @@
+FILE_ENC = r'C:\Users\Максим\Desktop\Work\Word_stat\CSV\ENCODING_TIME.txt'
+FILE_DUP = r'C:\Users\Максим\Desktop\Work\Word_stat\CSV\DUPLICATE_TIME.txt'
+FILE_WRI = r'C:\Users\Максим\Desktop\Work\Word_stat\CSV\WRITE_TIME.txt'
+FILE_TOT = r'C:\Users\Максим\Desktop\Work\Word_stat\CSV\TOTAL_TIME.txt'
+FILE_WFL = r'C:\Users\Максим\Desktop\Work\Word_stat\CSV\WORDS_NUM_IN_FILE.txt'
+FILE_WTD = r'C:\Users\Максим\Desktop\Work\Word_stat\CSV\WORDS_NUM_IN_DICT.txt'
