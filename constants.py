@@ -10,6 +10,9 @@ FIRST_DIR = r'C:\Users\Максим\Desktop\BACKUP\First_test'
 SECOND_DIR = r'C:\Users\Максим\Desktop\BACKUP\Second_test'
 
 
+VALUE = 'value'
+COLOR = 'color'
+
 # FILE_ENC = r'C:\Users\Максим\Desktop\Work\Word_stat\CSV\ENCODING_TIME.txt'
 # FILE_DUP = r'C:\Users\Максим\Desktop\Work\Word_stat\CSV\DUPLICATE_TIME.txt'
 # FILE_WRI = r'C:\Users\Максим\Desktop\Work\Word_stat\CSV\WRITE_TIME.txt'

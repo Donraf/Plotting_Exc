@@ -70,7 +70,6 @@ axes[1, 1].set_xlabel('Время, с.')
 axes[1, 1].set_ylabel('Длина словаря')
 axes[1, 1].grid(True)
 
-# plt.show()
 
 enc_sum = 0
 dup_sum = 0
@@ -86,34 +85,41 @@ for ind in dup_csv.index:
 other_sum = tot_sum - enc_sum - dup_sum - wri_sum
 
 d = {
-        'TOTAL': tot_sum,
-        'ENCODING': enc_sum,
-        'DUPLICATE': dup_sum,
-        'WRITING': wri_sum,
-        'OTHER': other_sum,
+        'TOTAL':    {
+                    VALUE: tot_sum,
+                    COLOR: '#00ebc4'
+                    },
+        'ENCODING': {
+                    VALUE: enc_sum,
+                    COLOR: '#d14324'
+                    },
+        'DUPLICATE':{
+                    VALUE: dup_sum,
+                    COLOR: '#ce24d1'
+                    },
+        'WRITING':  {
+                    VALUE: wri_sum,
+                    COLOR: '#5923cf'
+                    },
+        'OTHER':    {
+                    VALUE: other_sum,
+                    COLOR: '#00e600'
+                    },
     }
-od = OrderedDict(reversed(sorted(d.items(), key=lambda item: item[1])))
-colors = ['#00ebc4', '#0047ab', '#287233', '#43328a', '#287233']
+od = OrderedDict(reversed(sorted(d.items(), key=lambda item: item[1][VALUE])))
 fig, axes = plt.subplots(1, 2)
-p = axes[0].bar(np.arange(1, 6), [x[1] for x in od.items()],
-                color=colors)
+p = axes[0].bar(np.arange(1, 6), [x[1][VALUE] for x in od.items()],
+                color=[x[1][COLOR] for x in od.items()])
 axes[0].set_xticks(np.arange(1, 6), list([x[0] for x in od.items()]))
 axes[0].bar_label(p, label_type='center')
-axes[0].bar_label(p, labels=['{:.2%}'.format(x[1]/tot_sum) for x in od.items()], label_type='edge')
-# plt.show()
-# axes[1].pie([x[1] for x in list(od.items())[1:]],
-#                 labels=['{:.2%}'.format(x[1]/tot_sum) for x in list(od.items())[1:]],
-#                 shadow=True,
-#                 )
-axes[1].pie([x[1]/tot_sum for x in reversed(list(od.items())[1:])],
+axes[0].bar_label(p, labels=['{:.2%}'.format(x[1][VALUE]/tot_sum) for x in od.items()], label_type='edge')
+
+axes[1].pie([x[1][VALUE]/tot_sum for x in reversed(list(od.items())[1:])],
             labels=[x[0] for x in reversed(list(od.items())[1:])],
             autopct='%1.1f%%',
             shadow=True,
             startangle=180,
-            colors=reversed(colors[1:])
+            colors=[x[1][COLOR] for x in reversed(list(od.items())[1:])]
             )
-# ax.set_xticks(np.arange(1, 6), list([x[0] for x in d.items()]))
-# ax.bar_label(p, label_type='center')
-# axes[1].pie(labels=['{:.2%}'.format(x[1]/tot_sum) for x in od.items()], label_type='edge')
 plt.show()
 
