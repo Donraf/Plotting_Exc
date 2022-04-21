@@ -70,7 +70,7 @@ axes[1, 1].set_xlabel('Время, с.')
 axes[1, 1].set_ylabel('Длина словаря')
 axes[1, 1].grid(True)
 
-plt.show()
+# plt.show()
 
 enc_sum = 0
 dup_sum = 0
@@ -85,11 +85,6 @@ for ind in dup_csv.index:
     wri_sum += wri_csv.iat[ind - 1, 0]
 other_sum = tot_sum - enc_sum - dup_sum - wri_sum
 
-print(tot_sum)
-print(enc_sum)
-print(dup_sum)
-print(wri_sum)
-print(other_sum)
 d = {
         'TOTAL': tot_sum,
         'ENCODING': enc_sum,
@@ -97,11 +92,28 @@ d = {
         'WRITING': wri_sum,
         'OTHER': other_sum,
     }
-OrderedDict(sorted(d.items(), key=lambda item: item[1]))
-for item in d.items():
-    print(item)
-fig, ax = plt.subplots()
-p = ax.bar(np.arange(1, 6), list(reversed(sorted([tot_sum, enc_sum, dup_sum, wri_sum, other_sum]))))
-ax.set_xticks(np.arange(1, 6), list([x[0] for x in d.items()]))
-ax.bar_label(p, label_type='center')
+od = OrderedDict(reversed(sorted(d.items(), key=lambda item: item[1])))
+colors = ['#00ebc4', '#0047ab', '#287233', '#43328a', '#287233']
+fig, axes = plt.subplots(1, 2)
+p = axes[0].bar(np.arange(1, 6), [x[1] for x in od.items()],
+                color=colors)
+axes[0].set_xticks(np.arange(1, 6), list([x[0] for x in od.items()]))
+axes[0].bar_label(p, label_type='center')
+axes[0].bar_label(p, labels=['{:.2%}'.format(x[1]/tot_sum) for x in od.items()], label_type='edge')
+# plt.show()
+# axes[1].pie([x[1] for x in list(od.items())[1:]],
+#                 labels=['{:.2%}'.format(x[1]/tot_sum) for x in list(od.items())[1:]],
+#                 shadow=True,
+#                 )
+axes[1].pie([x[1]/tot_sum for x in reversed(list(od.items())[1:])],
+            labels=[x[0] for x in reversed(list(od.items())[1:])],
+            autopct='%1.1f%%',
+            shadow=True,
+            startangle=180,
+            colors=reversed(colors[1:])
+            )
+# ax.set_xticks(np.arange(1, 6), list([x[0] for x in d.items()]))
+# ax.bar_label(p, label_type='center')
+# axes[1].pie(labels=['{:.2%}'.format(x[1]/tot_sum) for x in od.items()], label_type='edge')
 plt.show()
+
